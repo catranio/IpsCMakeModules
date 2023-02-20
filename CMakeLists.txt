@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.2)
 project(IpsCMakeModules VERSION 1.0.0)
 
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/")
-
 add_custom_target(ips-cmake-modules)
 
 set(IPS_CMAKEMODULES_INSTALL_DESTINATION "lib/${PROJECT_NAME}/cmake")
@@ -18,7 +16,15 @@ configure_package_config_file(
         ${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}Config.in
         ${IPS_CMAKEMODULES_CONFIG_FILE}
         INSTALL_DESTINATION ${IPS_CMAKEMODULES_INSTALL_DESTINATION})
+write_basic_package_version_file(
+        ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Version.cmake
+        VERSION
+        "${PROJECT_VERSION}"
+        COMPATIBILITY
+        SameMajorVersion)
 
 install(
-        FILES ${IPS_CMAKEMODULES_CONFIG_FILE}
+        FILES ${IPS_CMAKEMODULES_CONFIG_FILE} "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Version.cmake"
         DESTINATION ${IPS_CMAKEMODULES_INSTALL_DESTINATION})
+
+set(${PROJECT_NAME}_DIR ${IPS_CMAKEMODULES_CONFIG_FILE} CACHE PATH "")
