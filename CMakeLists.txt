@@ -20,3 +20,15 @@ configure_package_config_file(
 install(
         FILES ${IPS_CMAKEMODULES_CONFIG_FILE}
         DESTINATION ${IPS_CMAKEMODULES_INSTALL_DESTINATION})
+
+## Provide some pkg-config integration
+set(PKGCONFIG_INSTALL_DIR
+        "${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig"
+        CACHE PATH "Path where ${PROJECT_NAME}.pc is installed")
+configure_file(
+        ${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}.pc.in
+        ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.pc
+        @ONLY)
+install(
+        FILES ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.pc
+        DESTINATION ${PKGCONFIG_INSTALL_DIR})
