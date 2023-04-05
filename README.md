@@ -38,18 +38,11 @@ ips_add_target(custom.project.target EXECUTABLE
 set(LIBS_SOURCE_DIR ${CMAKE_SOURCE_DIR}/libs)
 
 include(FetchContent)
-# Fetching ips-cmake-modules
-FetchContent_Declare(ips-cmake-modules
+FetchContent_Declare(IpsCMakeModules
         GIT_REPOSITORY https://github.com/catranio/IpsCMakeModules.git
         SOURCE_DIR ${LIBS_SOURCE_DIR}/common/IpsCMakeModules)
-FetchContent_Populate(ips-cmake-modules)
-include(CMakePackageConfigHelpers)
-configure_package_config_file(
-        ${LIBS_SOURCE_DIR}/Common/IpsCMakeModules/IpsCMakeModulesConfig.in
-        ${LIBS_SOURCE_DIR}/Common/IpsCMakeModules/IpsCMakeModulesConfig.cmake
-        INSTALL_DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/lib/IpsCMakeModules/cmake)
-set(IpsCMakeModules_DIR ${LIBS_SOURCE_DIR}/Common/IpsCMakeModules/)
-find_package(IpsCMakeModules)
+FetchContent_MakeAvailable(IpsCMakeModules)
+find_package(IpsCMakeModules PATHS ${IpsCMakeModules_CONFIG_DIR})
 ```
 
 `IpsCMakeModules` will installed by path `libs/common/IpsCMakeModules` and remember to add this path to `.gitignore`
