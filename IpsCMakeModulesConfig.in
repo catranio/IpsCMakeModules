@@ -3,7 +3,8 @@
 set(__IPS_CMAKE_MODULES_FILES
     ips_init.cmake
     ips_add_target.cmake
-    ips_utils.cmake)
+    ips_utils.cmake
+    ips_detect_errors.cmake)
 
 foreach(__IPS_CMAKE_MODULES_FILE ${__IPS_CMAKE_MODULES_FILES})
     include(${CMAKE_CURRENT_LIST_DIR}/${__IPS_CMAKE_MODULES_FILE})
