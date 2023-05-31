@@ -35,7 +35,7 @@ function(_ips_collect_source _IPS_COLLECTED_SOURCES _IPS_SOURCES _IPS_EXTENSIONS
     set(${_IPS_COLLECTED_SOURCES} ${_SOURCE_LIST} PARENT_SCOPE)
 endfunction(_ips_collect_source)
 
-function (ips_add_sanitizer TARGET SANITIZER)
+function (ips_add_sanitizer target SANITIZER)
     cmake_parse_arguments(
             SANITIZER
             ""
@@ -44,8 +44,8 @@ function (ips_add_sanitizer TARGET SANITIZER)
             ${ARGN}
     )
     if (SANITIZER_CONDITION)
-        message(STATUS "Using sanitizer: ${SANITIZER}")
-        target_compile_options(${TARGET} PRIVATE -fsanitize=${SANITIZER})
-        target_link_options(${TARGET} PRIVATE -fsanitize=${SANITIZER})
+        message(STATUS "${target}: Using sanitizer: ${SANITIZER}")
+        target_compile_options(${target} PRIVATE -fsanitize=${SANITIZER})
+        target_link_options(${target} PRIVATE -fsanitize=${SANITIZER})
     endif ()
 endfunction ()

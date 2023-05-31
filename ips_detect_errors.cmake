@@ -2,7 +2,7 @@ function(ips_pedantic_error target)
     if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang"
             OR CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang"
             OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-        message(STATUS "Enable pedantic: ${target}")
+        message(STATUS "${target}: Using strict error checking mode")
         target_compile_options(${target} PRIVATE
                 -Werror
                 -Wall
