@@ -5,8 +5,6 @@ function(_ips_add_prefix_to_list _PREFIX _LIST_VAR _LIST)
     set(${_LIST_VAR} ${_VAL} PARENT_SCOPE)
 endfunction(_ips_add_prefix_to_list)
 
-
-
 function(_ips_collect_source _IPS_COLLECTED_SOURCES _IPS_SOURCES _IPS_EXTENSIONS)
     if (NOT _IPS_EXTENSIONS)
         set(_IPS_EXTENSIONS *.cpp *.cxx *.cc *.c *.h *.hpp *.hh *.hxx)
@@ -36,3 +34,18 @@ function(_ips_collect_source _IPS_COLLECTED_SOURCES _IPS_SOURCES _IPS_EXTENSIONS
 
     set(${_IPS_COLLECTED_SOURCES} ${_SOURCE_LIST} PARENT_SCOPE)
 endfunction(_ips_collect_source)
+
+function (ips_add_sanitizer TARGET SANITIZER)
+    cmake_parse_arguments(
+            SANITIZER
+            ""
+            "CONDITION"
+            ""
+            ${ARGN}
+    )
+    if (SANITIZER_CONDITION)
+        message(STATUS "Using sanitizer: ${SANITIZER}")
+        target_compile_options(${TARGET} PRIVATE -fsanitize=${SANITIZER})
+        target_link_options(${TARGET} PRIVATE -fsanitize=${SANITIZER})
+    endif ()
+endfunction ()

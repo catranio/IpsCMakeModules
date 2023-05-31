@@ -7,7 +7,7 @@ function(ips_pedantic_error target)
                 -Werror
                 -Wall
                 -Wextra
-                -pedantic
+                -Wpedantic
                 -Wcast-align
                 -Wcast-qual
                 -Wctor-dtor-privacy
@@ -24,7 +24,20 @@ function(ips_pedantic_error target)
                 -Wno-unused
                 -Wno-variadic-macros
                 -Wno-parentheses
-                -fdiagnostics-show-option)
+                -Wconversion
+                -Wmissing-noreturn
+                -Wstack-protector
+                -Wunreachable-code
+                -Wfloat-equal
+                -Wunused
+                -Wswitch
+                -Wuninitialized
+                -Wformat-nonliteral
+                -Wformat-security
+                -Wformat-y2k
+                -Winline
+                -fdiagnostics-show-option
+                )
         if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
             target_compile_options(${target} PRIVATE
                     -Wstrict-null-sentinel
