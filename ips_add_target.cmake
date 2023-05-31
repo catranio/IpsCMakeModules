@@ -156,7 +156,7 @@ function(ips_add_target _IPS_TARGET_NAME)
             "HEADERS;SOURCES;DESTINATION;DEPENDS"
             ${ARGN})
 
-    message(STATUS "Adding target: ${_IPS_TARGET_NAME}")
+    message(STATUS "Add target: ${_IPS_TARGET_NAME}")
 
     _ips_new_target(${_IPS_TARGET_NAME} ${_IPS_GLOBAL_STATIC} ${_IPS_GLOBAL_STATIC} ${_IPS_GLOBAL_EXECUTABLE} "${_IPS_GLOBAL_SOURCES}")
     _ips_headers(${_IPS_TARGET_NAME} ${_IPS_GLOBAL_STATIC} ${_IPS_GLOBAL_STATIC} "${_IPS_GLOBAL_DESTINATION}" "${_IPS_GLOBAL_HEADERS}")
