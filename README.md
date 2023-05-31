@@ -7,6 +7,24 @@ Sets the general build parameters and the c++ standard.
 ```cmake
 ips_init(custom.project.name CXX c++17)
 ```
+### ips_fetch
+Extract and build cmake remote project or libs.
+
+**Properties:**\
+`GIT_REPOSITORY` - Url from remote git repository.\
+`GIT_TAG` - Branch or tag use for build.\
+`LOCAL_DIR` - Set path to local project for build.\
+`${ARGN}` - Provide other FetchContent arguments.\
+***Global: Use for all ips_fetch.***\
+`IPS_PREFER_GIT_TAG` - Check tag and use if exist.
+
+**Example:**
+```cmake
+ips_fetch_git(some.lib
+        GIT_REPOSITORY https://github.com/some/lib.git
+        GIT_TAG v0.1.0
+        LOCAL_DIR install/path/local/some.lib)
+```
 ### ips_add_target
 Adds a target for the build (default is `EXECUTABLE`).
 
