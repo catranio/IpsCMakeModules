@@ -148,6 +148,7 @@ function(_ips_headers _IPS_TARGET_NAME _IPS_TARGET_STATIC _IPS_TARGET_SHARED _IP
 endfunction()
 
 function(_ips_target_compile_options _IPS_TARGET_NAME)
+    ips_split_name_and_namespace(_IPS_TARGET_NAMESPACE _IPS_TARGET_NAME ${_IPS_TARGET_NAME})
     if(UNIX)
         set(IPS_STD_COMPILER_OPTIONS -Wall -Werror -Wpedantic -Wextra -Wconversion
                 -Wold-style-cast -Wuninitialized -Wunreachable-code -Wshadow)
