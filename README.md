@@ -41,7 +41,7 @@ For `HEADERS` and `SOURCES` You can specify directories with end `/` or `/*` and
 
 **Example:**
 ```cmake
-ips_add_target(custom.project.target EXECUTABLE
+ips_add_target(namespace::custom.project.target EXECUTABLE
         HEADERS path/to/headers/* DESTINATION prefix/path/
         SOURCES path/to/sources/*
         DEPENDS
@@ -53,18 +53,11 @@ ips_add_target(custom.project.target EXECUTABLE
 ### Add to new CMake project
 
 ```cmake
-set(LIBS_SOURCE_DIR ${CMAKE_SOURCE_DIR}/libs)
-
 include(FetchContent)
 FetchContent_Declare(IpsCMakeModules
-        GIT_REPOSITORY https://github.com/catranio/IpsCMakeModules.git
-        SOURCE_DIR ${LIBS_SOURCE_DIR}/common/IpsCMakeModules)
+        GIT_REPOSITORY https://github.com/catranio/IpsCMakeModules.git)
 FetchContent_MakeAvailable(IpsCMakeModules)
-find_package(IpsCMakeModules PATHS ${IpsCMakeModules_CONFIG_DIR})
 ```
-
-`IpsCMakeModules` will installed by path `libs/common/IpsCMakeModules` and remember to add this path to `.gitignore`
-
 ---
 Author: *Petr Iaskevich, MIT license*\
 Email: *iaskdeveloper@gmail.com*
