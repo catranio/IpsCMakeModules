@@ -24,5 +24,5 @@ else()
     endforeach()
 
     set(${PROJECT_NAME}_DIR "${CMAKE_CURRENT_BINARY_DIR}" PARENT_SCOPE)
-    find_package(${PROJECT_NAME})
+    find_package(${PROJECT_NAME} PATHS ${CMAKE_CURRENT_BINARY_DIR})
 endif()
