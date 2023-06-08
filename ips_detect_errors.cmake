@@ -1,8 +1,12 @@
 function(ips_pedantic_error target)
+    ips_split_name_and_namespace(target_namespace target ${target})
     if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang"
             OR CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang"
             OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-        message(STATUS "${target}: Using strict error checking mode")
+        if(target_namespace)
+            set(target_prefix "${target_namespace}::")
+        endif ()
+        message(STATUS "${target_prefix}${target}: Using strict error checking mode")
         target_compile_options(${target} PRIVATE
                 -Werror
                 -Wall
