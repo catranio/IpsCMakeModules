@@ -35,7 +35,7 @@ function(_ips_new_target _IPS_TARGET_NAME
     else()
         add_executable(${_IPS_TARGET_NAME} ${_IPS_COLLECTED_SOURCES})
         if(_IPS_TARGET_NAMESPACE)
-            add_library(${_IPS_TARGET_NAMESPACE}::${_IPS_TARGET_NAME} ALIAS ${_IPS_TARGET_NAME})
+            add_executable(${_IPS_TARGET_NAMESPACE}::${_IPS_TARGET_NAME} ALIAS ${_IPS_TARGET_NAME})
         endif ()
     endif()
 endfunction()
