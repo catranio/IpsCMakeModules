@@ -216,7 +216,7 @@ endfunction()
 function(ips_add_target _IPS_TARGET_NAME)
     include(CMakeParseArguments)
     cmake_parse_arguments(_IPS_GLOBAL
-            "STATIC;SHARED;EXECUTABLE;IS_PEDANTIC_ERROR"
+            "STATIC;SHARED;EXECUTABLE;DISABLE_PEDANTIC_ERROR"
             ""
             "HEADERS;SOURCES;DESTINATION;DEPENDS"
             ${ARGN})
@@ -227,7 +227,7 @@ function(ips_add_target _IPS_TARGET_NAME)
     if (_IPS_GLOBAL_SOURCES)
         _ips_target_compile_options(${_IPS_TARGET_NAME})
     endif ()
-    if (_IPS_GLOBAL_IS_PEDANTIC_ERROR)
+    if (NOT _IPS_GLOBAL_DISABLE_PEDANTIC_ERROR)
         _ips_target_strict_error_mode(${_IPS_TARGET_NAME})
         set(opts "${opts} | strict error checking mode")
     endif()
