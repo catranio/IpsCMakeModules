@@ -35,7 +35,8 @@ Adds a target for the build (default is `EXECUTABLE`).
 `HEADERS` - Sets the list of headers.\
 `SOURCES` - Sets the list of sources.\
 `DESTINATION` - Prefix path headers after install.\
-`DEPENDS` - Sets the list of library. If "-l" is specified, the prefix will be truncated and the library will be passed directly. It is possible to pass linker options by specifying them after "-Wl,". The full path to the library can be specified.
+`DEPENDS` - Sets the list of library. If "-l" is specified, the prefix will be truncated and the library will be passed directly. It is possible to pass linker options by specifying them after "-Wl,". The full path to the library can be specified. \
+`IS_PEDANTIC_ERROR` - Use strict error checking mode.
 
 For `HEADERS` and `SOURCES` You can specify directories with end `/` or `/*` and then they will be bypassed recursively.
 

@@ -164,15 +164,62 @@ function(_ips_target_compile_options _IPS_TARGET_NAME)
     endif()
 endfunction()
 
+function(_ips_target_strict_error_mode target)
+    ips_split_name_and_namespace(target_namespace target_name ${target})
+    if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang"
+            OR CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang"
+            OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+        target_compile_options(${target_name} PRIVATE
+                -Werror
+                -Wall
+                -Wextra
+                -Wpedantic
+                -Wcast-align
+                -Wcast-qual
+                -Wctor-dtor-privacy
+                -Wdisabled-optimization
+                -Wformat=2
+                -Winit-self
+                -Wmissing-include-dirs
+                -Wold-style-cast
+                -Woverloaded-virtual
+                -Wredundant-decls
+                -Wshadow
+                -Wsign-promo
+                -Wundef
+                -Wno-unused
+                -Wno-variadic-macros
+                -Wno-parentheses
+                -Wconversion
+                -Wmissing-noreturn
+                -Wstack-protector
+                -Wunreachable-code
+                -Wfloat-equal
+                -Wunused
+                -Wswitch
+                -Wuninitialized
+                -Wformat-nonliteral
+                -Wformat-security
+                -Wformat-y2k
+                -Winline
+                -fdiagnostics-show-option
+                )
+        if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+            target_compile_options(${target_name} PRIVATE
+                    -Wstrict-null-sentinel
+                    -Wnoexcept
+                    -Wlogical-op)
+        endif ()
+    endif ()
+endfunction()
+
 function(ips_add_target _IPS_TARGET_NAME)
     include(CMakeParseArguments)
     cmake_parse_arguments(_IPS_GLOBAL
-            "STATIC;SHARED;EXECUTABLE"
+            "STATIC;SHARED;EXECUTABLE;IS_PEDANTIC_ERROR"
             ""
             "HEADERS;SOURCES;DESTINATION;DEPENDS"
             ${ARGN})
-
-    message(STATUS "Add target: ${_IPS_TARGET_NAME}")
 
     _ips_new_target(${_IPS_TARGET_NAME} ${_IPS_GLOBAL_STATIC} ${_IPS_GLOBAL_STATIC} ${_IPS_GLOBAL_EXECUTABLE} "${_IPS_GLOBAL_SOURCES}")
     _ips_headers(${_IPS_TARGET_NAME} ${_IPS_GLOBAL_STATIC} ${_IPS_GLOBAL_STATIC} "${_IPS_GLOBAL_DESTINATION}" "${_IPS_GLOBAL_HEADERS}")
@@ -180,5 +227,11 @@ function(ips_add_target _IPS_TARGET_NAME)
     if (_IPS_GLOBAL_SOURCES)
         _ips_target_compile_options(${_IPS_TARGET_NAME})
     endif ()
+    if (_IPS_GLOBAL_IS_PEDANTIC_ERROR)
+        _ips_target_strict_error_mode(${_IPS_TARGET_NAME})
+        set(opts "${opts} | strict error checking mode")
+    endif()
     _ips_install_target(${_IPS_TARGET_NAME})
+
+    message(STATUS "Add target: ${_IPS_TARGET_NAME}${opts}")
 endfunction()
