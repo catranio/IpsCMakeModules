@@ -1,22 +1,6 @@
-function(ips_is_target_exists name out_is_exist)
-    find_package(${name} QUIET)
-    if (${name}_FOUND OR TARGET ${name})
-        set(${out_is_exist} ON PARENT_SCOPE)
-        return()
-    endif ()
-
-    set(${out_is_exist} OFF PARENT_SCOPE)
-endfunction()
-
 function(ips_fetch deps)
     cmake_parse_arguments(IPS "" "GIT_REPOSITORY;GIT_TAG;SOURCE_DIR;LOCAL_DIR" "" ${ARGN})
     ips_split_name_and_namespace(deps_namespace deps_name ${deps})
-
-    ips_is_target_exists(${deps_name} is_exist)
-    if (is_exist)
-        message(STATUS "Add target: ${deps_name} (already install)")
-        return()
-    endif()
 
     if (IPS_LOCAL_DIR)
         if (EXISTS IPS_LOCAL_DIR)
